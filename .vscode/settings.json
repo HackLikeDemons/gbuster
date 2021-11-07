@@ -1,0 +1,4 @@
+{
+    "python.disableInstallationCheck": true,
+    "python.defaultInterpreterPath": "python3"
+}
