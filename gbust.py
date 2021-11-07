@@ -11,7 +11,7 @@ import argparse
 import os
 
 parser = argparse.ArgumentParser()
-parser.add_argument('usecase', help='which wordlist to use - options are: common')
+parser.add_argument('usecase', help='which wordlist to use - options are: common, backup, compressed, office')
 parser.add_argument('method', help='which HTTP method to use - options are: get or post')
 parser.add_argument('target', help='target url including http or https')
 parser.add_argument('file_extensions', nargs='?', help='one or more file extensions to look for')
@@ -32,6 +32,21 @@ match use_case:
    case "common":
       print(f"Using HackLikeDemons default wordlist to scan {target}")
       gobuster_command = f"gobuster dir -t 50 -w {word_list} -m {method} -u {target} {file_extensions}"
+
+   case 'compressed':
+      print(f"Using HackLikeDemons default wordlist to scan {target} for compressed files")      
+      print(f"NOTE 1: This usecase will use GET as HTTP method and will ignore the file extensions argument you have chosen.")
+      compressed_file_extensions = 'zip,tar,gz,tgz,rar'
+      gobuster_command = f"gobuster dir -t 50 -w {word_list} -m GET -u {target} -x {compressed_file_extensions}"
+
+   
+   case 'office':
+      print(f"Using HackLikeDemons default wordlist to scan {target} for office-like files")      
+      print(f"NOTE 1: This usecase will use GET as HTTP method and will ignore the file extensions argument you have chosen.")
+      office_file_extensions = 'docx,rtf,xlsx,pptx,pdf'
+      gobuster_command = f"gobuster dir -t 50 -w {word_list} -m GET -u {target} -x {office_file_extensions}"
+
+
    
    case "backups":
       print(f"Using HackLikeDemons default wordlist to scan {target} for backup files")
