@@ -1,5 +1,11 @@
 #!/usr/local/bin/python3
 
+# TODO: Add default user agent
+# TODO: Add output to files
+
+# ffuf -w ~/hacking/tools/wordlists/test.txt -u http://andreaswienes.de/FUZZ -e \~
+# TODO wrapper for ffuf
+
 ''' 
 A simple wrapper for GoBuster, just written to avoid typing the same things over and over again
 Author: Andreas Wienes - Hack Like Demons - https://twitter.com/AndreasWienes
@@ -17,7 +23,7 @@ parser.add_argument('target', help='target url including http or https')
 parser.add_argument('file_extensions', nargs='?', help='one or more file extensions to look for')
 args = parser.parse_args()
 
-word_list = '~/hacking/tools/wordlists/hld_web_content.txt' # add your default wordlist
+word_list = '~/hacking/tools/wordlists/hld_web_content.txt' # add your default wordlist here
 use_case = args.usecase
 method = args.method.upper()
 target = args.target
@@ -38,7 +44,6 @@ match use_case:
       print(f"NOTE 1: This usecase will use GET as HTTP method and will ignore the file extensions argument you have chosen.")
       compressed_file_extensions = 'zip,tar,gz,tgz,rar'
       gobuster_command = f"gobuster dir -t 50 -w {word_list} -m GET -u {target} -x {compressed_file_extensions}"
-
    
    case 'office':
       print(f"Using HackLikeDemons default wordlist to scan {target} for office-like files")      
@@ -46,8 +51,6 @@ match use_case:
       office_file_extensions = 'docx,rtf,xlsx,pptx,pdf'
       gobuster_command = f"gobuster dir -t 50 -w {word_list} -m GET -u {target} -x {office_file_extensions}"
 
-
-   
    case "backups":
       print(f"Using HackLikeDemons default wordlist to scan {target} for backup files")
       print(f"NOTE 1: This won\'t scan for files that end with a ~ sign, i.e. old_file~")
