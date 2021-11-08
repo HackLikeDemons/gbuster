@@ -49,31 +49,31 @@ else:
 match use_case: 
    case "common":
       print(f"Using HackLikeDemons default wordlist to scan {target}")
-      gobuster_command = f"gobuster dir -t 50 -w {word_list} -m {method} -u {target} {file_extensions} -a={user_agent} -o {output_path}/{output_file}_{use_case}.txt"
+      gobuster_command = f"gobuster dir -e -t 50 -w {word_list} -m {method} -u {target} {file_extensions} -a={user_agent} -o {output_path}/{output_file}_{use_case}.txt"
 
    case 'compressed':
       print(f"Using HackLikeDemons default wordlist to scan {target} for compressed files")      
       print(f"NOTE 1: This usecase will use GET as HTTP method and will ignore the file extensions argument you have chosen.")
       compressed_file_extensions = 'zip,tar,gz,tgz,tar.gz,rar'
-      gobuster_command = f"gobuster dir -t 50 -w {word_list} -m GET -u {target} -x {compressed_file_extensions} -a={user_agent} -o {output_path}/{output_file}_{use_case}.txt"
+      gobuster_command = f"gobuster dir -e -t 50 -w {word_list} -m GET -u {target} -x {compressed_file_extensions} -a={user_agent} -o {output_path}/{output_file}_{use_case}.txt"
    
    case 'office':
       print(f"Using HackLikeDemons default wordlist to scan {target} for office-like files")      
       print(f"NOTE 1: This usecase will use GET as HTTP method and will ignore the file extensions argument you have chosen.")
       office_file_extensions = 'doc,docx,rtf,xls,xlsx,pptx,pdf,csv'
-      gobuster_command = f"gobuster dir -t 50 -w {word_list} -m GET -u {target} -x {office_file_extensions} -a={user_agent} -o {output_path}/{output_file}_{use_case}.txt"
+      gobuster_command = f"gobuster dir -e -t 50 -w {word_list} -m GET -u {target} -x {office_file_extensions} -a={user_agent} -o {output_path}/{output_file}_{use_case}.txt"
 
    case "backups":
       print(f"Using HackLikeDemons default wordlist to scan {target} for backup files")
       print(f"NOTE 1: This won\'t scan for files that end with a ~ sign, i.e. old_file~")
       print(f"NOTE 2: This usecase will use GET as HTTP method and will ignore the file extensions argument you have chosen.")
       backup_file_extensions = 'old,bak,txt,src,dev,inc,orig,copy,tmp,swp,conf,cfg'
-      gobuster_command = f"gobuster dir -t 50 -w {word_list} -m GET -u {target} -x {backup_file_extensions} -a={user_agent} -o {output_path}/{output_file}_{use_case}.txt"
+      gobuster_command = f"gobuster dir -e -t 50 -w {word_list} -m GET -u {target} -x {backup_file_extensions} -a={user_agent} -o {output_path}/{output_file}_{use_case}.txt"
 
    case "php":
       print(f"Using HackLikeDemons default wordlist to scan {target} for php files")      
       php_file_extensions = 'php,php3,php4,php5,phtm,phtml'
-      gobuster_command = f"gobuster dir -t 50 -w {word_list} -m {method} -u {target} -x {php_file_extensions} -a={user_agent} -o {output_path}/{output_file}_{use_case}.txt"
+      gobuster_command = f"gobuster dir -e -t 50 -w {word_list} -m {method} -u {target} -x {php_file_extensions} -a={user_agent} -o {output_path}/{output_file}_{use_case}.txt"
 
    case _:
       raise ValueError("Invalid usecase - please use -h option to list available options")
